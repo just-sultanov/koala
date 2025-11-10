@@ -1,0 +1,8 @@
+.clj-kondo
+.cpcache
+.lsp
+.settings
+target
+.classpath
+.project
+pom.xml

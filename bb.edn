@@ -1,0 +1,40 @@
+{:tasks
+ {:requires ([clojure.string :as str])
+
+  outdated {:doc "Check for outdated dependencies"
+            :task (case (first *command-line-args*)
+                    "upgrade" (shell "clojure -M:nop:outdated --main antq.core --upgrade --force")
+                    (shell "clojure -M:nop:outdated --main antq.core"))}
+
+  clean {:doc "Run cleanup"
+         :task (clojure "-T:build clean")}
+
+  lint {:doc "Run linters"
+        :task (do
+                (shell "clojure-lsp diagnostics")
+                (shell "clojure-lsp format"))}
+
+  repl {:doc "Run nREPL"
+        :override-builtin true
+        :depends [java:compile]
+        :task (shell "clj -M:test:develop --main nrepl.cmdline --middleware [\"cider.nrepl/cider-middleware\"] --interactive")}
+
+  test {:doc "Run tests"
+        :override-builtin true
+        :task (case (first *command-line-args*)
+                "unit" (shell "clojure -M:develop:nop:test --main kaocha.runner --focus :unit")
+                (shell (format "clojure -M:develop:nop:test --main kaocha.runner %s" (str/join \space *command-line-args*))))}
+
+  java:compile {:doc "Compile java sources"
+                :depends [clean]
+                :task (clojure "-T:build java:compile")}
+
+  jar:build {:doc "Build jar"
+             :override-builtin true
+             :depends [java:compile]
+             :task (clojure "-T:build jar:build")}
+
+  jar:install {:doc "Build and install jar"
+               :override-builtin true
+               :depends [jar:build]
+               :task (clojure "-T:build jar:install")}}}
