@@ -24,6 +24,9 @@
   :import-expr
   (import 'clojure.lang.Keyword)
 
+  :instance-of-expr
+  (instance? String "foo")
+
   :throw-expr
   (try
     (throw (ex-info "boom!" {}))

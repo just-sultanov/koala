@@ -8,6 +8,7 @@
     Compiler$C
     Compiler$FnExpr
     Compiler$ImportExpr
+    Compiler$InstanceOfExpr
     Compiler$InvokeExpr
     Compiler$LetExpr
     Compiler$MonitorEnterExpr
@@ -116,6 +117,18 @@
 
 (defmethod handler :import-expr/exit
   [stage ^Compiler$ImportExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; InstanceOfExpr
+;;;;
+
+(defmethod handler :instance-of-expr/enter
+  [stage ^Compiler$InstanceOfExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :instance-of-expr/exit
+  [stage ^Compiler$InstanceOfExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
