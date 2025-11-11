@@ -39,7 +39,7 @@ Ensure the **koality** of your codebase.
 - [ ] clojure.lang.Compiler.TheVarExpr;
 - [ ] clojure.lang.Compiler.TryExpr;
 - [ ] clojure.lang.Compiler.UnresolvedVarExpr;
-- [ ] clojure.lang.Compiler.VarExpr;
+- [x] clojure.lang.Compiler.VarExpr;
 - [ ] clojure.lang.Compiler.VectorExpr;
 - [x] clojure.lang.Compiler.MonitorEnterExpr;
 - [x] clojure.lang.Compiler.MonitorExitExpr;

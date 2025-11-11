@@ -9,15 +9,6 @@
   (* a b))
 
 (comment
-  (multiply 2 3)
-  (square 4)
-  (square (multiply 2 3))
-  []
-  '()
-  #{}
-  {}
-  (identity [])
-
   :monitor-enter-expr
   :monitor-exit-expr
   (let [lock (Object.)]
@@ -29,4 +20,9 @@
   :throw-expr
   (try
     (throw (ex-info "boom!" {}))
-    (catch Exception _)))
+    (catch Exception _))
+
+  :var-expr
+  (multiply 2 3)
+  (square 4)
+  (square (multiply 2 3)))

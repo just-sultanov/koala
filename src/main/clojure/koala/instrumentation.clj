@@ -10,7 +10,8 @@
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
     Compiler$ThrowExpr
-    Compiler$UntypedExpr)))
+    Compiler$UntypedExpr
+    Compiler$VarExpr)))
 
 ;;;;
 ;; Instrumentation entrypoint
@@ -62,4 +63,16 @@
 
 (defmethod handler :throw-expr/exit
   [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; VarExpr
+;;;;
+
+(defmethod handler :var-expr/enter
+  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :var-expr/exit
+  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
