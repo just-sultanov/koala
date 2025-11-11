@@ -14,7 +14,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.DefExpr;
 - [x] clojure.lang.Compiler.EmptyExpr;
 - [x] clojure.lang.Compiler.FnExpr;
-- [ ] clojure.lang.Compiler.HostExpr;
+- [x] clojure.lang.Compiler.HostExpr;
 - [ ] clojure.lang.Compiler.IfExpr;
 - [x] clojure.lang.Compiler.ImportExpr;
 - [x] clojure.lang.Compiler.InstanceOfExpr;

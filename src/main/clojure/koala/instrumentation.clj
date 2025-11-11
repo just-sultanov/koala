@@ -12,6 +12,7 @@
     Compiler$EmptyExpr
     Compiler$DefExpr
     Compiler$FnExpr
+    Compiler$HostExpr
     Compiler$ImportExpr
     Compiler$InstanceOfExpr
     Compiler$InvokeExpr
@@ -101,6 +102,30 @@
   (log/debug stage (get-coords objx)))
 
 ;;;;
+;; FnExpr
+;;;;
+
+(defmethod handler :fn-expr/enter
+  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :fn-expr/exit
+  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; HostExpr
+;;;;
+
+(defmethod handler :host-expr/enter
+  [stage ^Compiler$HostExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :host-expr/exit
+  [stage ^Compiler$HostExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
 ;; UntypedExpr
 ;;;;
 
@@ -158,18 +183,6 @@
 
 (defmethod handler :the-var-expr/exit
   [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-;;;;
-;; FnExpr
-;;;;
-
-(defmethod handler :fn-expr/enter
-  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :fn-expr/exit
-  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
