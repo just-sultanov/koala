@@ -17,6 +17,7 @@ import clojure.lang.InvokeExprAdvice;
 import clojure.lang.KeywordInvokeExprAdvice;
 import clojure.lang.LetExprAdvice;
 import clojure.lang.LetFnExprAdvice;
+import clojure.lang.ListExprAdvice;
 import clojure.lang.MonitorEnterExprAdvice;
 import clojure.lang.MonitorExitExprAdvice;
 import clojure.lang.TheVarExprAdvice;
@@ -46,6 +47,7 @@ public final class Instrumentation {
     KeywordInvokeExprAdvice.instrument(strategy);
     LetExprAdvice.instrument(strategy);
     LetFnExprAdvice.instrument(strategy);
+    ListExprAdvice.instrument(strategy);
     MonitorEnterExprAdvice.instrument(strategy);
     MonitorExitExprAdvice.instrument(strategy);
     TheVarExprAdvice.instrument(strategy);
