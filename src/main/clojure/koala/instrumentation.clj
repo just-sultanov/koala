@@ -17,6 +17,7 @@
     Compiler$ImportExpr
     Compiler$InstanceOfExpr
     Compiler$InvokeExpr
+    Compiler$KeywordInvokeExpr
     Compiler$LetExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
@@ -172,6 +173,18 @@
 
 (defmethod handler :invoke-expr/exit
   [stage ^Compiler$InvokeExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; KeywordInvokeExpr
+;;;;
+
+(defmethod handler :keyword-invoke-expr/enter
+  [stage ^Compiler$KeywordInvokeExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :keyword-invoke-expr/exit
+  [stage ^Compiler$KeywordInvokeExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

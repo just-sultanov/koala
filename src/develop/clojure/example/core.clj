@@ -28,6 +28,9 @@
   :if-expr
   (or false true)
 
+  :keyword-invoke-expr
+  (:foo {:foo 42})
+
   :let-expr
   :monitor-enter-expr
   :monitor-exit-expr
