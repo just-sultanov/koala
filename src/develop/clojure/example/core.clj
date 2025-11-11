@@ -43,6 +43,12 @@
   :new-expr
   (String. "")
 
+  :recur-expr
+  (loop [i 0]
+    (if (= i 10)
+      i
+      (recur (inc i))))
+
   :let-fn-expr
   (letfn [(foo [x] x)]
     (foo :bar))
