@@ -31,6 +31,7 @@
     Compiler$NewExpr
     Compiler$NewInstanceExpr
     Compiler$ObjExpr
+    Compiler$QualifiedMethodExpr
     Compiler$TheVarExpr
     Compiler$ThrowExpr
     Compiler$UntypedExpr
@@ -350,6 +351,18 @@
 
 (defmethod handler :obj-expr/exit
   [stage ^Compiler$ObjExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; QualifiedMethodExpr
+;;;;
+
+(defmethod handler :qualified-method-expr/enter
+  [stage ^Compiler$QualifiedMethodExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :qualified-method-expr/exit
+  [stage ^Compiler$QualifiedMethodExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

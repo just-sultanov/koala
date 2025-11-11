@@ -31,7 +31,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.NewExpr;
 - [x] clojure.lang.Compiler.NewInstanceExpr;
 - [x] clojure.lang.Compiler.ObjExpr;
-- [ ] clojure.lang.Compiler.QualifiedMethodExpr;
+- [x] clojure.lang.Compiler.QualifiedMethodExpr;
 - [ ] clojure.lang.Compiler.RecurExpr;
 - [ ] clojure.lang.Compiler.SetExpr;
 - [ ] clojure.lang.Compiler.StaticInvokeExpr;
