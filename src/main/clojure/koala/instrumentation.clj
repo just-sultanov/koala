@@ -341,6 +341,18 @@
   (log/debug stage (get-coords objx)))
 
 ;;;;
+;; ObjExpr
+;;;;
+
+(defmethod handler :obj-expr/enter
+  [stage ^Compiler$ObjExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :obj-expr/exit
+  [stage ^Compiler$ObjExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
 ;; TheVarExpr
 ;;;;
 
