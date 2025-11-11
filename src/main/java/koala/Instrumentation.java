@@ -19,6 +19,7 @@ import clojure.lang.LetExprAdvice;
 import clojure.lang.LetFnExprAdvice;
 import clojure.lang.ListExprAdvice;
 import clojure.lang.LiteralExprAdvice;
+import clojure.lang.LocalBindingExprAdvice;
 import clojure.lang.MonitorEnterExprAdvice;
 import clojure.lang.MonitorExitExprAdvice;
 import clojure.lang.TheVarExprAdvice;
@@ -50,6 +51,7 @@ public final class Instrumentation {
     LetFnExprAdvice.instrument(strategy);
     ListExprAdvice.instrument(strategy);
     LiteralExprAdvice.instrument(strategy);
+    LocalBindingExprAdvice.instrument(strategy);
     MonitorEnterExprAdvice.instrument(strategy);
     MonitorExitExprAdvice.instrument(strategy);
     TheVarExprAdvice.instrument(strategy);

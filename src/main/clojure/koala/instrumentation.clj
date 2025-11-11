@@ -22,6 +22,7 @@
     Compiler$LetFnExpr
     Compiler$ListExpr
     Compiler$LiteralExpr
+    Compiler$LocalBindingExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
@@ -236,6 +237,18 @@
 
 (defmethod handler :literal-expr/exit
   [stage ^Compiler$LiteralExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; LocalBindingExpr
+;;;;
+
+(defmethod handler :local-binding-expr/enter
+  [stage ^Compiler$LocalBindingExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :local-binding-expr/exit
+  [stage ^Compiler$LocalBindingExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
