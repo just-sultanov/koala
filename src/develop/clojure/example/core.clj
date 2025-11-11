@@ -18,6 +18,9 @@
       (finally
         (monitor-exit lock))))
 
+  :the-var-expr
+  (var multiply)
+
   :throw-expr
   (try
     (throw (ex-info "boom!" {}))

@@ -11,6 +11,7 @@
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
+    Compiler$TheVarExpr
     Compiler$ThrowExpr
     Compiler$UntypedExpr
     Compiler$VarExpr)))
@@ -77,6 +78,18 @@
 
 (defmethod handler :var-expr/exit
   [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; TheVarExpr
+;;;;
+
+(defmethod handler :the-var-expr/enter
+  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :the-var-expr/exit
+  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
