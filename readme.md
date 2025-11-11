@@ -11,7 +11,7 @@ Ensure the **koality** of your codebase.
 - [ ] clojure.lang.Compiler.AssignExpr;
 - [ ] clojure.lang.Compiler.BodyExpr;
 - [ ] clojure.lang.Compiler.CaseExpr;
-- [ ] clojure.lang.Compiler.DefExpr;
+- [x] clojure.lang.Compiler.DefExpr;
 - [ ] clojure.lang.Compiler.EmptyExpr;
 - [x] clojure.lang.Compiler.FnExpr;
 - [ ] clojure.lang.Compiler.HostExpr;
