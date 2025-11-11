@@ -19,6 +19,7 @@
     Compiler$InvokeExpr
     Compiler$KeywordInvokeExpr
     Compiler$LetExpr
+    Compiler$LetFnExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
@@ -197,6 +198,18 @@
 
 (defmethod handler :let-expr/exit
   [stage ^Compiler$LetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; LetFnExpr
+;;;;
+
+(defmethod handler :let-fn-expr/enter
+  [stage ^Compiler$LetFnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :let-fn-expr/exit
+  [stage ^Compiler$LetFnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

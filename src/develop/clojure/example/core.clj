@@ -40,6 +40,10 @@
       (finally
         (monitor-exit lock))))
 
+  :let-fn-expr
+  (letfn [(foo [x] x)]
+    (foo :bar))
+
   :the-var-expr
   (var multiply)
 
