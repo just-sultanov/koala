@@ -20,7 +20,7 @@ Ensure the **koality** of your codebase.
 - [ ] clojure.lang.Compiler.InstanceOfExpr;
 - [x] clojure.lang.Compiler.InvokeExpr;
 - [ ] clojure.lang.Compiler.KeywordInvokeExpr;
-- [ ] clojure.lang.Compiler.LetExpr;
+- [x] clojure.lang.Compiler.LetExpr;
 - [ ] clojure.lang.Compiler.LetFnExpr;
 - [ ] clojure.lang.Compiler.ListExpr;
 - [ ] clojure.lang.Compiler.LiteralExpr;

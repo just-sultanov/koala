@@ -9,6 +9,7 @@
   (* a b))
 
 (comment
+  :let-expr
   :monitor-enter-expr
   :monitor-exit-expr
   (let [lock (Object.)]

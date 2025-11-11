@@ -7,6 +7,7 @@
    (clojure.lang
     Compiler$C
     Compiler$InvokeExpr
+    Compiler$LetExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
@@ -88,4 +89,16 @@
 
 (defmethod handler :invoke-expr/exit
   [stage ^Compiler$InvokeExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; LetExpr
+;;;;
+
+(defmethod handler :let-expr/enter
+  [stage ^Compiler$LetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :let-expr/exit
+  [stage ^Compiler$LetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
