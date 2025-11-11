@@ -44,6 +44,9 @@
   (letfn [(foo [x] x)]
     (foo :bar))
 
+  :meta-expr
+  ^:meta {:foo :bar}
+
   :the-var-expr
   (var multiply)
 
