@@ -10,6 +10,7 @@ import clojure.lang.DefExprAdvice;
 import clojure.lang.EmptyExprAdvice;
 import clojure.lang.FnExprAdvice;
 import clojure.lang.HostExprAdvice;
+import clojure.lang.IfExprAdvice;
 import clojure.lang.ImportExprAdvice;
 import clojure.lang.InstanceOfExprAdvice;
 import clojure.lang.InvokeExprAdvice;
@@ -36,6 +37,7 @@ public final class Instrumentation {
     DefExprAdvice.instrument(strategy);
     FnExprAdvice.instrument(strategy);
     HostExprAdvice.instrument(strategy);
+    IfExprAdvice.instrument(strategy);
     ImportExprAdvice.instrument(strategy);
     InstanceOfExprAdvice.instrument(strategy);
     InvokeExprAdvice.instrument(strategy);

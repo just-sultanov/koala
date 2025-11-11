@@ -25,6 +25,9 @@
   #{}
   {}
 
+  :if-expr
+  (or false true)
+
   :let-expr
   :monitor-enter-expr
   :monitor-exit-expr

@@ -9,10 +9,11 @@
     Compiler$AssignExpr
     Compiler$BodyExpr
     Compiler$CaseExpr
-    Compiler$EmptyExpr
     Compiler$DefExpr
+    Compiler$EmptyExpr
     Compiler$FnExpr
     Compiler$HostExpr
+    Compiler$IfExpr
     Compiler$ImportExpr
     Compiler$InstanceOfExpr
     Compiler$InvokeExpr
@@ -123,6 +124,18 @@
 
 (defmethod handler :host-expr/exit
   [stage ^Compiler$HostExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; IfExpr
+;;;;
+
+(defmethod handler :if-expr/enter
+  [stage ^Compiler$IfExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :if-expr/exit
+  [stage ^Compiler$IfExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
