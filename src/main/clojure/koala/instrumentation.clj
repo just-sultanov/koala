@@ -6,6 +6,7 @@
     GeneratorAdapter)
    (clojure.lang
     Compiler$C
+    Compiler$AssignExpr
     Compiler$DefExpr
     Compiler$FnExpr
     Compiler$ImportExpr
@@ -35,6 +36,18 @@
 (defn get-coords
   [^Compiler$ObjExpr objx]
   {:line (.line objx), :column (.column objx)})
+
+;;;;
+;; AssignExpr
+;;;;
+
+(defmethod handler :assign-expr/enter
+  [stage ^Compiler$AssignExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :assign-expr/exit
+  [stage ^Compiler$AssignExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
 
 ;;;;
 ;; UntypedExpr

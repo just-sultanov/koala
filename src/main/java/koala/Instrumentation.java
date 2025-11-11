@@ -3,6 +3,7 @@ package koala;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 
+import clojure.lang.AssignExprAdvice;
 import clojure.lang.DefExprAdvice;
 import clojure.lang.FnExprAdvice;
 import clojure.lang.ImportExprAdvice;
@@ -24,6 +25,7 @@ public final class Instrumentation {
 
   public static void instrument() {
     final ClassReloadingStrategy strategy = ClassReloadingStrategy.fromInstalledAgent();
+    AssignExprAdvice.instrument(strategy);
     DefExprAdvice.instrument(strategy);
     FnExprAdvice.instrument(strategy);
     ImportExprAdvice.instrument(strategy);

@@ -8,7 +8,7 @@ Ensure the **koality** of your codebase.
 
 ### Current progress
 
-- [ ] clojure.lang.Compiler.AssignExpr;
+- [x] clojure.lang.Compiler.AssignExpr;
 - [ ] clojure.lang.Compiler.BodyExpr;
 - [ ] clojure.lang.Compiler.CaseExpr;
 - [x] clojure.lang.Compiler.DefExpr;

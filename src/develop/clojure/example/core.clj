@@ -9,6 +9,11 @@
   (* a b))
 
 (comment
+  :assign-expr
+  (let [object (java.awt.Point. 1 2)]
+    (set! (. object  -y) 8)
+    (bean object))
+
   :let-expr
   :monitor-enter-expr
   :monitor-exit-expr
