@@ -19,6 +19,12 @@
   (case :foo
     :foo :foo)
 
+  :empty-expr
+  '()
+  []
+  #{}
+  {}
+
   :let-expr
   :monitor-enter-expr
   :monitor-exit-expr
