@@ -29,8 +29,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.MetaExpr;
 - [x] clojure.lang.Compiler.MethodParamExpr;
 - [x] clojure.lang.Compiler.NewExpr;
-- [ ] clojure.lang.Compiler.NewInstanceExpr;
-- [ ] clojure.lang.Compiler.NewInstanceMethod;
+- [x] clojure.lang.Compiler.NewInstanceExpr;
 - [ ] clojure.lang.Compiler.ObjExpr;
 - [ ] clojure.lang.Compiler.QualifiedMethodExpr;
 - [ ] clojure.lang.Compiler.RecurExpr;
