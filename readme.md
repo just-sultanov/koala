@@ -18,7 +18,7 @@ Ensure the **koality** of your codebase.
 - [ ] clojure.lang.Compiler.IfExpr;
 - [ ] clojure.lang.Compiler.ImportExpr;
 - [ ] clojure.lang.Compiler.InstanceOfExpr;
-- [ ] clojure.lang.Compiler.InvokeExpr;
+- [x] clojure.lang.Compiler.InvokeExpr;
 - [ ] clojure.lang.Compiler.KeywordInvokeExpr;
 - [ ] clojure.lang.Compiler.LetExpr;
 - [ ] clojure.lang.Compiler.LetFnExpr;

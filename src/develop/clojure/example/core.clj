@@ -23,6 +23,7 @@
     (catch Exception _))
 
   :var-expr
+  :invoke-expr
   (multiply 2 3)
   (square 4)
   (square (multiply 2 3)))
