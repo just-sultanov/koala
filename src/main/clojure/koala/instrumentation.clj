@@ -7,6 +7,7 @@
    (clojure.lang
     Compiler$C
     Compiler$AssignExpr
+    Compiler$BodyExpr
     Compiler$DefExpr
     Compiler$FnExpr
     Compiler$ImportExpr
@@ -47,6 +48,18 @@
 
 (defmethod handler :assign-expr/exit
   [stage ^Compiler$AssignExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; BodyExpr
+;;;;
+
+(defmethod handler :body-expr/enter
+  [stage ^Compiler$BodyExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :body-expr/exit
+  [stage ^Compiler$BodyExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

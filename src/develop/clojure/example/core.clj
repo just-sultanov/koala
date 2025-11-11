@@ -10,6 +10,7 @@
 
 (comment
   :assign-expr
+  :body-expr
   (let [object (java.awt.Point. 1 2)]
     (set! (. object  -y) 8)
     (bean object))
