@@ -28,6 +28,7 @@
     Compiler$MethodParamExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
+    Compiler$NewExpr
     Compiler$ObjExpr
     Compiler$TheVarExpr
     Compiler$ThrowExpr
@@ -312,6 +313,18 @@
 
 (defmethod handler :monitor-exit-expr/exit
   [stage ^Compiler$MonitorExitExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; NewExpr
+;;;;
+
+(defmethod handler :new-expr/enter
+  [stage ^Compiler$NewExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :new-expr/exit
+  [stage ^Compiler$NewExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

@@ -40,6 +40,9 @@
       (finally
         (monitor-exit lock))))
 
+  :new-expr
+  (String. "")
+
   :let-fn-expr
   (letfn [(foo [x] x)]
     (foo :bar))
