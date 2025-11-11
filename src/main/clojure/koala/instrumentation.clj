@@ -25,6 +25,7 @@
     Compiler$LocalBindingExpr
     Compiler$MapExpr
     Compiler$MetaExpr
+    Compiler$MethodParamExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
@@ -275,6 +276,18 @@
 
 (defmethod handler :meta-expr/exit
   [stage ^Compiler$MetaExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; MethodParamExpr
+;;;;
+
+(defmethod handler :method-param-expr/enter
+  [stage ^Compiler$MethodParamExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :method-param-expr/exit
+  [stage ^Compiler$MethodParamExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
