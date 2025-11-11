@@ -26,6 +26,7 @@ import clojure.lang.MethodParamExprAdvice;
 import clojure.lang.MonitorEnterExprAdvice;
 import clojure.lang.MonitorExitExprAdvice;
 import clojure.lang.NewExprAdvice;
+import clojure.lang.NewInstanceExprAdvice;
 import clojure.lang.TheVarExprAdvice;
 import clojure.lang.ThrowExprAdvice;
 import clojure.lang.UntypedExprAdvice;
@@ -62,6 +63,7 @@ public final class Instrumentation {
     MonitorEnterExprAdvice.instrument(strategy);
     MonitorExitExprAdvice.instrument(strategy);
     NewExprAdvice.instrument(strategy);
+    NewInstanceExprAdvice.instrument(strategy);
     TheVarExprAdvice.instrument(strategy);
     ThrowExprAdvice.instrument(strategy);
     UntypedExprAdvice.instrument(strategy);
