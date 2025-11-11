@@ -139,66 +139,6 @@
   (log/debug stage (get-coords objx)))
 
 ;;;;
-;; UntypedExpr
-;;;;
-
-(defmethod handler :untyped-expr/enter
-  [stage ^Compiler$UntypedExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :untyped-expr/exit
-  [stage ^Compiler$UntypedExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :monitor-enter-expr/enter
-  [stage ^Compiler$MonitorEnterExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :monitor-enter-expr/exit
-  [stage ^Compiler$MonitorEnterExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :monitor-exit-expr/enter
-  [stage ^Compiler$MonitorExitExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :monitor-exit-expr/exit
-  [stage ^Compiler$MonitorExitExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :throw-expr/enter
-  [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :throw-expr/exit
-  [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-;;;;
-;; VarExpr
-;;;;
-
-(defmethod handler :var-expr/enter
-  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :var-expr/exit
-  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-;;;;
-;; TheVarExpr
-;;;;
-
-(defmethod handler :the-var-expr/enter
-  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-(defmethod handler :the-var-expr/exit
-  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
-  (log/debug stage (get-coords objx)))
-
-;;;;
 ;; ImportExpr
 ;;;;
 
@@ -244,4 +184,76 @@
 
 (defmethod handler :let-expr/exit
   [stage ^Compiler$LetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; MonitorEnterExpr
+;;;;
+
+(defmethod handler :monitor-enter-expr/enter
+  [stage ^Compiler$MonitorEnterExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :monitor-enter-expr/exit
+  [stage ^Compiler$MonitorEnterExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; MonitorExitExpr
+;;;;
+
+(defmethod handler :monitor-exit-expr/enter
+  [stage ^Compiler$MonitorExitExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :monitor-exit-expr/exit
+  [stage ^Compiler$MonitorExitExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; TheVarExpr
+;;;;
+
+(defmethod handler :the-var-expr/enter
+  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :the-var-expr/exit
+  [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; ThrowExpr
+;;;;
+
+(defmethod handler :throw-expr/enter
+  [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :throw-expr/exit
+  [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; UntypedExpr
+;;;;
+
+(defmethod handler :untyped-expr/enter
+  [stage ^Compiler$UntypedExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :untyped-expr/exit
+  [stage ^Compiler$UntypedExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; VarExpr
+;;;;
+
+(defmethod handler :var-expr/enter
+  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :var-expr/exit
+  [stage ^Compiler$VarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
