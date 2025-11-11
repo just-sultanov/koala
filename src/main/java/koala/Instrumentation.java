@@ -4,6 +4,7 @@ import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 
 import clojure.lang.FnExprAdvice;
+import clojure.lang.ImportExprAdvice;
 import clojure.lang.InvokeExprAdvice;
 import clojure.lang.LetExprAdvice;
 import clojure.lang.MonitorEnterExprAdvice;
@@ -22,6 +23,7 @@ public final class Instrumentation {
   public static void instrument() {
     final ClassReloadingStrategy strategy = ClassReloadingStrategy.fromInstalledAgent();
     FnExprAdvice.instrument(strategy);
+    ImportExprAdvice.instrument(strategy);
     InvokeExprAdvice.instrument(strategy);
     LetExprAdvice.instrument(strategy);
     MonitorEnterExprAdvice.instrument(strategy);

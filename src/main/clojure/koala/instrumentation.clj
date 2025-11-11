@@ -7,6 +7,7 @@
    (clojure.lang
     Compiler$C
     Compiler$FnExpr
+    Compiler$ImportExpr
     Compiler$InvokeExpr
     Compiler$LetExpr
     Compiler$MonitorEnterExpr
@@ -103,6 +104,18 @@
 
 (defmethod handler :fn-expr/exit
   [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; ImportExpr
+;;;;
+
+(defmethod handler :import-expr/enter
+  [stage ^Compiler$ImportExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :import-expr/exit
+  [stage ^Compiler$ImportExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

@@ -21,6 +21,9 @@
   :the-var-expr
   (var multiply)
 
+  :import-expr
+  (import 'clojure.lang.Keyword)
+
   :throw-expr
   (try
     (throw (ex-info "boom!" {}))
