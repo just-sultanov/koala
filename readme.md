@@ -23,7 +23,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.LetExpr;
 - [x] clojure.lang.Compiler.LetFnExpr;
 - [x] clojure.lang.Compiler.ListExpr;
-- [ ] clojure.lang.Compiler.LiteralExpr;
+- [x] clojure.lang.Compiler.LiteralExpr;
 - [ ] clojure.lang.Compiler.LocalBindingExpr;
 - [ ] clojure.lang.Compiler.MapExpr;
 - [ ] clojure.lang.Compiler.MetaExpr;

@@ -21,6 +21,7 @@
     Compiler$LetExpr
     Compiler$LetFnExpr
     Compiler$ListExpr
+    Compiler$LiteralExpr
     Compiler$MonitorEnterExpr
     Compiler$MonitorExitExpr
     Compiler$ObjExpr
@@ -223,6 +224,18 @@
 
 (defmethod handler :list-expr/exit
   [stage ^Compiler$ListExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; LiteralExpr
+;;;;
+
+(defmethod handler :literal-expr/enter
+  [stage ^Compiler$LiteralExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :literal-expr/exit
+  [stage ^Compiler$LiteralExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
