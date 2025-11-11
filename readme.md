@@ -25,7 +25,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.ListExpr;
 - [x] clojure.lang.Compiler.LiteralExpr;
 - [x] clojure.lang.Compiler.LocalBindingExpr;
-- [ ] clojure.lang.Compiler.MapExpr;
+- [x] clojure.lang.Compiler.MapExpr;
 - [ ] clojure.lang.Compiler.MetaExpr;
 - [ ] clojure.lang.Compiler.MethodParamExpr;
 - [ ] clojure.lang.Compiler.NewExpr;
