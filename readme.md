@@ -13,7 +13,7 @@ Ensure the **koality** of your codebase.
 - [ ] clojure.lang.Compiler.CaseExpr;
 - [ ] clojure.lang.Compiler.DefExpr;
 - [ ] clojure.lang.Compiler.EmptyExpr;
-- [ ] clojure.lang.Compiler.FnExpr;
+- [x] clojure.lang.Compiler.FnExpr;
 - [ ] clojure.lang.Compiler.HostExpr;
 - [ ] clojure.lang.Compiler.IfExpr;
 - [ ] clojure.lang.Compiler.ImportExpr;

@@ -6,6 +6,7 @@
     GeneratorAdapter)
    (clojure.lang
     Compiler$C
+    Compiler$FnExpr
     Compiler$InvokeExpr
     Compiler$LetExpr
     Compiler$MonitorEnterExpr
@@ -90,6 +91,18 @@
 
 (defmethod handler :the-var-expr/exit
   [stage ^Compiler$TheVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; FnExpr
+;;;;
+
+(defmethod handler :fn-expr/enter
+  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :fn-expr/exit
+  [stage ^Compiler$FnExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
