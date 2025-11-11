@@ -15,6 +15,10 @@
     (set! (. object  -y) 8)
     (bean object))
 
+  :case-expr
+  (case :foo
+    :foo :foo)
+
   :let-expr
   :monitor-enter-expr
   :monitor-exit-expr

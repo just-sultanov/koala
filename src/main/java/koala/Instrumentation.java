@@ -5,6 +5,7 @@ import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 
 import clojure.lang.AssignExprAdvice;
 import clojure.lang.BodyExprAdvice;
+import clojure.lang.CaseExprAdvice;
 import clojure.lang.DefExprAdvice;
 import clojure.lang.FnExprAdvice;
 import clojure.lang.ImportExprAdvice;
@@ -28,6 +29,7 @@ public final class Instrumentation {
     final ClassReloadingStrategy strategy = ClassReloadingStrategy.fromInstalledAgent();
     AssignExprAdvice.instrument(strategy);
     BodyExprAdvice.instrument(strategy);
+    CaseExprAdvice.instrument(strategy);
     DefExprAdvice.instrument(strategy);
     FnExprAdvice.instrument(strategy);
     ImportExprAdvice.instrument(strategy);

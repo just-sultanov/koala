@@ -10,7 +10,7 @@ Ensure the **koality** of your codebase.
 
 - [x] clojure.lang.Compiler.AssignExpr;
 - [x] clojure.lang.Compiler.BodyExpr;
-- [ ] clojure.lang.Compiler.CaseExpr;
+- [x] clojure.lang.Compiler.CaseExpr;
 - [x] clojure.lang.Compiler.DefExpr;
 - [ ] clojure.lang.Compiler.EmptyExpr;
 - [x] clojure.lang.Compiler.FnExpr;
