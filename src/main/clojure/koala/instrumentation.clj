@@ -33,6 +33,7 @@
     Compiler$ObjExpr
     Compiler$QualifiedMethodExpr
     Compiler$RecurExpr
+    Compiler$SetExpr
     Compiler$TheVarExpr
     Compiler$ThrowExpr
     Compiler$UntypedExpr
@@ -376,6 +377,18 @@
 
 (defmethod handler :recur-expr/exit
   [stage ^Compiler$RecurExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; SetExpr
+;;;;
+
+(defmethod handler :set-expr/enter
+  [stage ^Compiler$SetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :set-expr/exit
+  [stage ^Compiler$SetExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;

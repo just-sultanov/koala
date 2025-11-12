@@ -33,7 +33,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.ObjExpr;
 - [x] clojure.lang.Compiler.QualifiedMethodExpr;
 - [x] clojure.lang.Compiler.RecurExpr;
-- [ ] clojure.lang.Compiler.SetExpr;
+- [x] clojure.lang.Compiler.SetExpr;
 - [ ] clojure.lang.Compiler.StaticInvokeExpr;
 - [x] clojure.lang.Compiler.TheVarExpr;
 - [ ] clojure.lang.Compiler.TryExpr;
