@@ -7,6 +7,7 @@ import clojure.lang.AssignExprAdvice;
 import clojure.lang.BodyExprAdvice;
 import clojure.lang.BooleanExprAdvice;
 import clojure.lang.CaseExprAdvice;
+import clojure.lang.ConstantExprAdvice;
 import clojure.lang.DefExprAdvice;
 import clojure.lang.EmptyExprAdvice;
 import clojure.lang.FieldExprAdvice;
@@ -55,6 +56,7 @@ public final class Instrumentation {
     BodyExprAdvice.instrument(strategy);
     BooleanExprAdvice.instrument(strategy);
     CaseExprAdvice.instrument(strategy);
+    ConstantExprAdvice.instrument(strategy);
     EmptyExprAdvice.instrument(strategy);
     FieldExprAdvice.instrument(strategy);
     DefExprAdvice.instrument(strategy);

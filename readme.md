@@ -29,7 +29,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.ListExpr
 - [x] clojure.lang.Compiler.LiteralExpr
   - [x] clojure.lang.Compiler.BooleanExpr
-  - [ ] clojure.lang.Compiler.ConstantExpr
+  - [x] clojure.lang.Compiler.ConstantExpr
   - [ ] clojure.lang.Compiler.KeywordExpr
   - [ ] clojure.lang.Compiler.NilExpr
   - [ ] clojure.lang.Compiler.NumberExpr

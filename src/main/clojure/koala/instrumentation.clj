@@ -10,6 +10,7 @@
     Compiler$BodyExpr
     Compiler$BooleanExpr
     Compiler$CaseExpr
+    Compiler$ConstantExpr
     Compiler$DefExpr
     Compiler$EmptyExpr
     Compiler$FieldExpr
@@ -108,6 +109,18 @@
 
 (defmethod handler :case-expr/exit
   [stage ^Compiler$CaseExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; ConstantExpr
+;;;;
+
+(defmethod handler :constant-expr/enter
+  [stage ^Compiler$ConstantExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :constant-expr/exit
+  [stage ^Compiler$ConstantExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
