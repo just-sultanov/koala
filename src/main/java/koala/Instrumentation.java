@@ -39,6 +39,7 @@ import clojure.lang.QualifiedMethodExprAdvice;
 import clojure.lang.RecurExprAdvice;
 import clojure.lang.SetExprAdvice;
 import clojure.lang.StaticInvokeExprAdvice;
+import clojure.lang.StringExprAdvice;
 import clojure.lang.TheVarExprAdvice;
 import clojure.lang.ThrowExprAdvice;
 import clojure.lang.TryExprAdvice;
@@ -60,9 +61,9 @@ public final class Instrumentation {
     BooleanExprAdvice.instrument(strategy);
     CaseExprAdvice.instrument(strategy);
     ConstantExprAdvice.instrument(strategy);
+    DefExprAdvice.instrument(strategy);
     EmptyExprAdvice.instrument(strategy);
     FieldExprAdvice.instrument(strategy);
-    DefExprAdvice.instrument(strategy);
     FnExprAdvice.instrument(strategy);
     HostExprAdvice.instrument(strategy);
     IfExprAdvice.instrument(strategy);
@@ -91,6 +92,7 @@ public final class Instrumentation {
     RecurExprAdvice.instrument(strategy);
     SetExprAdvice.instrument(strategy);
     StaticInvokeExprAdvice.instrument(strategy);
+    StringExprAdvice.instrument(strategy);
     TheVarExprAdvice.instrument(strategy);
     ThrowExprAdvice.instrument(strategy);
     TryExprAdvice.instrument(strategy);
