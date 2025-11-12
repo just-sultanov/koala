@@ -18,6 +18,7 @@ import clojure.lang.ImportExprAdvice;
 import clojure.lang.InstanceFieldExprAdvice;
 import clojure.lang.InstanceOfExprAdvice;
 import clojure.lang.InvokeExprAdvice;
+import clojure.lang.KeywordExprAdvice;
 import clojure.lang.KeywordInvokeExprAdvice;
 import clojure.lang.LetExprAdvice;
 import clojure.lang.LetFnExprAdvice;
@@ -67,6 +68,7 @@ public final class Instrumentation {
     InstanceFieldExprAdvice.instrument(strategy);
     InstanceOfExprAdvice.instrument(strategy);
     InvokeExprAdvice.instrument(strategy);
+    KeywordExprAdvice.instrument(strategy);
     KeywordInvokeExprAdvice.instrument(strategy);
     LetExprAdvice.instrument(strategy);
     LetFnExprAdvice.instrument(strategy);
