@@ -33,6 +33,7 @@ import clojure.lang.MonitorExitExprAdvice;
 import clojure.lang.NewExprAdvice;
 import clojure.lang.NewInstanceExprAdvice;
 import clojure.lang.NilExprAdvice;
+import clojure.lang.NumberExprAdvice;
 import clojure.lang.ObjExprAdvice;
 import clojure.lang.QualifiedMethodExprAdvice;
 import clojure.lang.RecurExprAdvice;
@@ -84,6 +85,7 @@ public final class Instrumentation {
     NewExprAdvice.instrument(strategy);
     NewInstanceExprAdvice.instrument(strategy);
     NilExprAdvice.instrument(strategy);
+    NumberExprAdvice.instrument(strategy);
     ObjExprAdvice.instrument(strategy);
     QualifiedMethodExprAdvice.instrument(strategy);
     RecurExprAdvice.instrument(strategy);

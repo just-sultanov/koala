@@ -36,6 +36,7 @@
     Compiler$NewExpr
     Compiler$NewInstanceExpr
     Compiler$NilExpr
+    Compiler$NumberExpr
     Compiler$ObjExpr
     Compiler$QualifiedMethodExpr
     Compiler$RecurExpr
@@ -423,6 +424,18 @@
 
 (defmethod handler :nil-expr/exit
   [stage ^Compiler$NilExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; NumberExpr
+;;;;
+
+(defmethod handler :number-expr/enter
+  [stage ^Compiler$NumberExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :number-expr/exit
+  [stage ^Compiler$NumberExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
