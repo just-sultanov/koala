@@ -35,6 +35,7 @@ import clojure.lang.StaticInvokeExprAdvice;
 import clojure.lang.TheVarExprAdvice;
 import clojure.lang.ThrowExprAdvice;
 import clojure.lang.TryExprAdvice;
+import clojure.lang.UnresolvedVarExprAdvice;
 import clojure.lang.UntypedExprAdvice;
 import clojure.lang.VarExprAdvice;
 
@@ -78,6 +79,7 @@ public final class Instrumentation {
     TheVarExprAdvice.instrument(strategy);
     ThrowExprAdvice.instrument(strategy);
     TryExprAdvice.instrument(strategy);
+    UnresolvedVarExprAdvice.instrument(strategy);
     UntypedExprAdvice.instrument(strategy);
     VarExprAdvice.instrument(strategy);
   }

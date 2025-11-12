@@ -38,6 +38,7 @@
     Compiler$TheVarExpr
     Compiler$ThrowExpr
     Compiler$TryExpr
+    Compiler$UnresolvedVarExpr
     Compiler$UntypedExpr
     Compiler$VarExpr)))
 
@@ -439,6 +440,18 @@
 
 (defmethod handler :try-expr/exit
   [stage ^Compiler$TryExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; UnresolvedVarExpr
+;;;;
+
+(defmethod handler :unresolved-var-expr/enter
+  [stage ^Compiler$UnresolvedVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :unresolved-var-expr/exit
+  [stage ^Compiler$UnresolvedVarExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
