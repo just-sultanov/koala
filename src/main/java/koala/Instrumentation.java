@@ -13,6 +13,7 @@ import clojure.lang.FnExprAdvice;
 import clojure.lang.HostExprAdvice;
 import clojure.lang.IfExprAdvice;
 import clojure.lang.ImportExprAdvice;
+import clojure.lang.InstanceFieldExprAdvice;
 import clojure.lang.InstanceOfExprAdvice;
 import clojure.lang.InvokeExprAdvice;
 import clojure.lang.KeywordInvokeExprAdvice;
@@ -59,6 +60,7 @@ public final class Instrumentation {
     HostExprAdvice.instrument(strategy);
     IfExprAdvice.instrument(strategy);
     ImportExprAdvice.instrument(strategy);
+    InstanceFieldExprAdvice.instrument(strategy);
     InstanceOfExprAdvice.instrument(strategy);
     InvokeExprAdvice.instrument(strategy);
     KeywordInvokeExprAdvice.instrument(strategy);

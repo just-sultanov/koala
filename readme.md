@@ -13,7 +13,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.AssignExpr
   - [ ] clojure.lang.Compiler.AssignableExpr
     - [x] clojure.lang.Compiler.FieldExpr
-    - [ ] clojure.lang.Compiler.InstanceFieldExpr
+    - [x] clojure.lang.Compiler.InstanceFieldExpr
 - [x] clojure.lang.Compiler.BodyExpr
 - [x] clojure.lang.Compiler.CaseExpr
 - [x] clojure.lang.Compiler.DefExpr

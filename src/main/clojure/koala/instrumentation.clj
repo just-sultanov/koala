@@ -16,6 +16,7 @@
     Compiler$HostExpr
     Compiler$IfExpr
     Compiler$ImportExpr
+    Compiler$InstanceFieldExpr
     Compiler$InstanceOfExpr
     Compiler$InvokeExpr
     Compiler$KeywordInvokeExpr
@@ -178,6 +179,18 @@
 
 (defmethod handler :import-expr/exit
   [stage ^Compiler$ImportExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; InstanceFieldExpr
+;;;;
+
+(defmethod handler :instance-field-expr/enter
+  [stage ^Compiler$InstanceFieldExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :instance-field-expr/exit
+  [stage ^Compiler$InstanceFieldExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
