@@ -31,7 +31,7 @@ Ensure the **koality** of your codebase.
   - [x] clojure.lang.Compiler.BooleanExpr
   - [x] clojure.lang.Compiler.ConstantExpr
   - [x] clojure.lang.Compiler.KeywordExpr
-  - [ ] clojure.lang.Compiler.NilExpr
+  - [x] clojure.lang.Compiler.NilExpr
   - [ ] clojure.lang.Compiler.NumberExpr
   - [ ] clojure.lang.Compiler.StringExpr
 - [x] clojure.lang.Compiler.LocalBindingExpr
