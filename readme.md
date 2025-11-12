@@ -34,7 +34,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.QualifiedMethodExpr;
 - [x] clojure.lang.Compiler.RecurExpr;
 - [x] clojure.lang.Compiler.SetExpr;
-- [ ] clojure.lang.Compiler.StaticInvokeExpr;
+- [x] clojure.lang.Compiler.StaticInvokeExpr;
 - [x] clojure.lang.Compiler.TheVarExpr;
 - [ ] clojure.lang.Compiler.TryExpr;
 - [ ] clojure.lang.Compiler.UnresolvedVarExpr;

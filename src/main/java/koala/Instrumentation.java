@@ -31,6 +31,7 @@ import clojure.lang.ObjExprAdvice;
 import clojure.lang.QualifiedMethodExprAdvice;
 import clojure.lang.RecurExprAdvice;
 import clojure.lang.SetExprAdvice;
+import clojure.lang.StaticInvokeExprAdvice;
 import clojure.lang.TheVarExprAdvice;
 import clojure.lang.ThrowExprAdvice;
 import clojure.lang.UntypedExprAdvice;
@@ -72,6 +73,7 @@ public final class Instrumentation {
     QualifiedMethodExprAdvice.instrument(strategy);
     RecurExprAdvice.instrument(strategy);
     SetExprAdvice.instrument(strategy);
+    StaticInvokeExprAdvice.instrument(strategy);
     TheVarExprAdvice.instrument(strategy);
     ThrowExprAdvice.instrument(strategy);
     UntypedExprAdvice.instrument(strategy);
