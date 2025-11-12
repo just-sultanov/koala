@@ -43,6 +43,12 @@
   :new-expr
   (String. "")
 
+  :try-expr
+  (try
+    (+ 1 2)
+    (finally
+      :foo))
+
   :recur-expr
   (loop [i 0]
     (if (= i 10)

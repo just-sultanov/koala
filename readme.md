@@ -36,7 +36,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.SetExpr;
 - [x] clojure.lang.Compiler.StaticInvokeExpr;
 - [x] clojure.lang.Compiler.TheVarExpr;
-- [ ] clojure.lang.Compiler.TryExpr;
+- [x] clojure.lang.Compiler.TryExpr;
 - [ ] clojure.lang.Compiler.UnresolvedVarExpr;
 - [x] clojure.lang.Compiler.VarExpr;
 - [ ] clojure.lang.Compiler.VectorExpr;

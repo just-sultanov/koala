@@ -37,6 +37,7 @@
     Compiler$StaticInvokeExpr
     Compiler$TheVarExpr
     Compiler$ThrowExpr
+    Compiler$TryExpr
     Compiler$UntypedExpr
     Compiler$VarExpr)))
 
@@ -426,6 +427,18 @@
 
 (defmethod handler :throw-expr/exit
   [stage ^Compiler$ThrowExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; TryExpr
+;;;;
+
+(defmethod handler :try-expr/enter
+  [stage ^Compiler$TryExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :try-expr/exit
+  [stage ^Compiler$TryExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
