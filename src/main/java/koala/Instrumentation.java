@@ -38,6 +38,7 @@ import clojure.lang.TryExprAdvice;
 import clojure.lang.UnresolvedVarExprAdvice;
 import clojure.lang.UntypedExprAdvice;
 import clojure.lang.VarExprAdvice;
+import clojure.lang.VectorExprAdvice;
 
 public final class Instrumentation {
 
@@ -82,6 +83,7 @@ public final class Instrumentation {
     UnresolvedVarExprAdvice.instrument(strategy);
     UntypedExprAdvice.instrument(strategy);
     VarExprAdvice.instrument(strategy);
+    VectorExprAdvice.instrument(strategy);
   }
 
 }
