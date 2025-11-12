@@ -21,6 +21,11 @@ public final class InstanceOfExprAdvice {
     handler = Clojure.var("koala.instrumentation", "handler");
   }
 
+  public static void instrument() {
+    final ClassReloadingStrategy strategy = ClassReloadingStrategy.fromInstalledAgent();
+    instrument(strategy);
+  }
+
   public static void instrument(final ClassReloadingStrategy strategy) {
     new ByteBuddy()
         .redefine(InstanceOfExpr.class)
@@ -33,23 +38,25 @@ public final class InstanceOfExprAdvice {
 
   @Advice.OnMethodEnter
   public static void onMethodEnter(
+      @Advice.Origin("#m") String method,
       @Advice.This InstanceOfExpr expr,
       @Advice.Argument(0) Compiler.C context,
       @Advice.Argument(1) ObjExpr objx,
       @Advice.Argument(2) GeneratorAdapter gen) {
     if (handler != null && expr != null) {
-      handler.invoke(onEnter, expr, context, objx, gen);
+      handler.invoke(onEnter, method, expr, context, objx, gen);
     }
   }
 
   @Advice.OnMethodExit
   public static void onMethodExit(
+      @Advice.Origin("#m") String method,
       @Advice.This InstanceOfExpr expr,
       @Advice.Argument(0) Compiler.C context,
       @Advice.Argument(1) ObjExpr objx,
       @Advice.Argument(2) GeneratorAdapter gen) {
     if (handler != null && expr != null) {
-      handler.invoke(onExit, expr, context, objx, gen);
+      handler.invoke(onExit, method, expr, context, objx, gen);
     }
   }
 

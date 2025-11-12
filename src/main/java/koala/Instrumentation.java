@@ -56,6 +56,10 @@ public final class Instrumentation {
 
   public static void instrument() {
     final ClassReloadingStrategy strategy = ClassReloadingStrategy.fromInstalledAgent();
+    instrument(strategy);
+  }
+
+  public static void instrument(ClassReloadingStrategy strategy) {
     AssignExprAdvice.instrument(strategy);
     BodyExprAdvice.instrument(strategy);
     BooleanExprAdvice.instrument(strategy);
