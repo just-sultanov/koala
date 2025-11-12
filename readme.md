@@ -11,17 +11,14 @@ Ensure the **koality** of your codebase.
 #### Emit
 
 - [x] clojure.lang.Compiler.AssignExpr
-  - [ ] clojure.lang.Compiler.AssignableExpr
-    - [x] clojure.lang.Compiler.FieldExpr
-    - [x] clojure.lang.Compiler.InstanceFieldExpr
+- [x] clojure.lang.Compiler.FieldExpr
+- [x] clojure.lang.Compiler.InstanceFieldExpr
 - [x] clojure.lang.Compiler.BodyExpr
 - [x] clojure.lang.Compiler.CaseExpr
 - [x] clojure.lang.Compiler.DefExpr
 - [x] clojure.lang.Compiler.EmptyExpr
 - [x] clojure.lang.Compiler.FnExpr
 - [x] clojure.lang.Compiler.HostExpr
-  - [ ] clojure.lang.Compiler.FieldExpr
-    - [ ] clojure.lang.Compiler.MethodExpr
 - [x] clojure.lang.Compiler.IfExpr
 - [x] clojure.lang.Compiler.ImportExpr
 - [x] clojure.lang.Compiler.InstanceOfExpr
@@ -31,7 +28,7 @@ Ensure the **koality** of your codebase.
 - [x] clojure.lang.Compiler.LetFnExpr
 - [x] clojure.lang.Compiler.ListExpr
 - [x] clojure.lang.Compiler.LiteralExpr
-  - [ ] clojure.lang.Compiler.BooleanExpr
+  - [x] clojure.lang.Compiler.BooleanExpr
   - [ ] clojure.lang.Compiler.ConstantExpr
   - [ ] clojure.lang.Compiler.KeywordExpr
   - [ ] clojure.lang.Compiler.NilExpr

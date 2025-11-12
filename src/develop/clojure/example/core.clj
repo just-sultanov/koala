@@ -26,6 +26,7 @@
   {}
 
   :if-expr
+  :boolean-expr
   (or false true)
 
   :keyword-invoke-expr

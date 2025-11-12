@@ -8,6 +8,7 @@
     Compiler$C
     Compiler$AssignExpr
     Compiler$BodyExpr
+    Compiler$BooleanExpr
     Compiler$CaseExpr
     Compiler$DefExpr
     Compiler$EmptyExpr
@@ -83,6 +84,18 @@
 
 (defmethod handler :body-expr/exit
   [stage ^Compiler$BodyExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; BooleanExpr
+;;;;
+
+(defmethod handler :boolean-expr/enter
+  [stage ^Compiler$BooleanExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :boolean-expr/exit
+  [stage ^Compiler$BooleanExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
