@@ -8,6 +8,7 @@ import clojure.lang.BodyExprAdvice;
 import clojure.lang.CaseExprAdvice;
 import clojure.lang.DefExprAdvice;
 import clojure.lang.EmptyExprAdvice;
+import clojure.lang.FieldExprAdvice;
 import clojure.lang.FnExprAdvice;
 import clojure.lang.HostExprAdvice;
 import clojure.lang.IfExprAdvice;
@@ -52,6 +53,7 @@ public final class Instrumentation {
     BodyExprAdvice.instrument(strategy);
     CaseExprAdvice.instrument(strategy);
     EmptyExprAdvice.instrument(strategy);
+    FieldExprAdvice.instrument(strategy);
     DefExprAdvice.instrument(strategy);
     FnExprAdvice.instrument(strategy);
     HostExprAdvice.instrument(strategy);

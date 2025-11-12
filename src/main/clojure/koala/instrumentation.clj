@@ -11,6 +11,7 @@
     Compiler$CaseExpr
     Compiler$DefExpr
     Compiler$EmptyExpr
+    Compiler$FieldExpr
     Compiler$FnExpr
     Compiler$HostExpr
     Compiler$IfExpr
@@ -117,6 +118,18 @@
 
 (defmethod handler :empty-expr/exit
   [stage ^Compiler$EmptyExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+;;;;
+;; FieldExpr
+;;;;
+
+(defmethod handler :field-expr/enter
+  [stage ^Compiler$FieldExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
+  (log/debug stage (get-coords objx)))
+
+(defmethod handler :field-expr/exit
+  [stage ^Compiler$FieldExpr _expr ^Compiler$C _context ^Compiler$ObjExpr objx ^GeneratorAdapter _gen]
   (log/debug stage (get-coords objx)))
 
 ;;;;
