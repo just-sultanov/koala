@@ -12,6 +12,11 @@
             :kaocha.plugin/randomize
             :kaocha.plugin.alpha/info]
 
+  :kaocha.hooks/pre-load [koala.kaocha/pre-load]
+  :kaocha.hooks/post-load [koala.kaocha/post-load]
+  :kaocha.hooks/pre-run [koala.kaocha/pre-run]
+  :kaocha.hooks/post-run [koala.kaocha/post-run]
+
   :tests [{:id :unit
            :source-paths ["src/main/clojure"]
            :test-paths ["src/test/clojure"]
