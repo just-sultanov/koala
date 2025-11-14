@@ -49,27 +49,27 @@ import clojure.lang.Compiler.VarExpr;
 import clojure.lang.Compiler.VectorExpr;
 import koala.Api;
 
-public final class Handler {
+public final class InstrumentUtils {
   public final static Keyword targetKey = Keyword.intern("target");
   public final static Keyword exprKey = Keyword.intern("expr");
   public final static Keyword contextKey = Keyword.intern("context");
   public final static Keyword objxKey = Keyword.intern("objx");
   public final static Keyword genKey = Keyword.intern("gen");
 
-  public static IPersistentMap buildOpts(
-      final String targetName,
+  public static IPersistentMap makeOpts(
       final String methodName,
       final Compiler.Expr expr,
       final Compiler.C context,
       final Compiler.ObjExpr objx,
       final GeneratorAdapter gen) {
-    final Keyword target = Api.asKeyword(targetName, String.format("%sEnter", methodName));
+    // final Keyword target = Api.asKeyword(targetName, String.format("%sEnter",
+    // methodName));
     final Keyword ctx = Api.asKeyword(context.name().toLowerCase());
     final IPersistentMap exprInfo = extractExprInfo(expr);
     final IPersistentMap objxInfo = extractExprInfo(objx);
     final IPersistentMap genInfo = extractGenInfo(gen);
     final ITransientMap opts = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, target)
+        // .assoc(targetKey, target)
         .assoc(exprKey, exprInfo)
         .assoc(contextKey, ctx)
         .assoc(objxKey, objxInfo)
@@ -101,28 +101,6 @@ public final class Handler {
     // .assoc("column", objx.column())
     // .assoc("src", objx.src));
     return opts.persistent();
-  }
-
-  public static void handleEnter(
-      final String targetName,
-      final String methodName,
-      final Compiler.Expr expr,
-      final Compiler.C context,
-      final Compiler.ObjExpr objx,
-      final GeneratorAdapter gen) {
-    final IPersistentMap opts = buildOpts(targetName, methodName, expr, context, objx, gen);
-    Api.handle(opts);
-  }
-
-  public static void handleExit(
-      final String targetName,
-      final String methodName,
-      final Compiler.Expr expr,
-      final Compiler.C context,
-      final Compiler.ObjExpr objx,
-      final GeneratorAdapter gen) {
-    final IPersistentMap opts = buildOpts(targetName, methodName, expr, context, objx, gen);
-    Api.handle(opts);
   }
 
   public static IPersistentMap extractGenInfo(final GeneratorAdapter gen) {
