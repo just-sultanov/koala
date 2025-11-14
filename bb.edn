@@ -21,6 +21,7 @@
 
   test {:doc "Run tests"
         :override-builtin true
+        :depends [java:compile]
         :task (case (first *command-line-args*)
                 "unit" (shell "clojure -M:develop:nop:test --main kaocha.runner --focus :unit")
                 (shell (format "clojure -M:develop:nop:test --main kaocha.runner %s" (str/join \space *command-line-args*))))}
