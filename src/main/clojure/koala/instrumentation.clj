@@ -6,8 +6,10 @@
 ;; Instrumentation entrypoint
 ;;;;
 
-(defmulti handler :target)
+(defmulti handler
+  (fn [_config data]
+    (:target data)))
 
 (defmethod handler :default
-  [opts]
-  (log/debug (pr-str opts)))
+  [config data]
+  (log/debug :config (pr-str config) :data (pr-str data)))

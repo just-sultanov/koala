@@ -14,9 +14,9 @@ public final class Api {
     handler = Clojure.var("koala.instrumentation", "handler");
   }
 
-  public static void invoke(final IPersistentMap opts) {
+  public static void invoke(final IPersistentMap config, final IPersistentMap data) {
     if (handler != null) {
-      handler.invoke(opts);
+      handler.invoke(config, data);
     }
   }
 

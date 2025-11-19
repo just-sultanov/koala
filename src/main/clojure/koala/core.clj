@@ -4,8 +4,8 @@
     Instrumentation)))
 
 (defn instrument
-  []
-  (Instrumentation/instrument))
+  [config]
+  (Instrumentation/instrument config))
 
 (comment
-  (instrument))
+  (instrument {}))

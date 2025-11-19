@@ -3,7 +3,7 @@ package clojure.lang;
 import clojure.asm.commons.GeneratorAdapter;
 
 import clojure.lang.Compiler.AssignExpr;
-import clojure.lang.Compiler.AssignableExpr;
+// import clojure.lang.Compiler.AssignableExpr;
 import clojure.lang.Compiler.BodyExpr;
 import clojure.lang.Compiler.BooleanExpr;
 import clojure.lang.Compiler.CaseExpr;
@@ -47,24 +47,25 @@ import clojure.lang.Compiler.UnresolvedVarExpr;
 import clojure.lang.Compiler.UntypedExpr;
 import clojure.lang.Compiler.VarExpr;
 import clojure.lang.Compiler.VectorExpr;
-import koala.Api;
 
 public final class InstrumentUtils {
   public final static Keyword targetKey = Keyword.intern("target");
   public final static Keyword exprKey = Keyword.intern("expr");
   public final static Keyword contextKey = Keyword.intern("context");
+  public final static Keyword contextStatementKey = Keyword.intern("statement");
+  public final static Keyword contextExpressionKey = Keyword.intern("expression");
+  public final static Keyword contextReturnKey = Keyword.intern("return");
+  public final static Keyword contextEvalKey = Keyword.intern("eval");
   public final static Keyword objxKey = Keyword.intern("objx");
   public final static Keyword genKey = Keyword.intern("gen");
 
-  public static IPersistentMap makeOpts(
+  public static IPersistentMap extract(
       final String methodName,
       final Compiler.Expr expr,
       final Compiler.C context,
       final Compiler.ObjExpr objx,
       final GeneratorAdapter gen) {
-    // final Keyword target = Api.asKeyword(targetName, String.format("%sEnter",
-    // methodName));
-    final Keyword ctx = Api.asKeyword(context.name().toLowerCase());
+    final Keyword ctx = extractContextInfo(context);
     final IPersistentMap exprInfo = extractExprInfo(expr);
     final IPersistentMap objxInfo = extractExprInfo(objx);
     final IPersistentMap genInfo = extractGenInfo(gen);
@@ -101,6 +102,15 @@ public final class InstrumentUtils {
     // .assoc("column", objx.column())
     // .assoc("src", objx.src));
     return opts.persistent();
+  }
+
+  public static Keyword extractContextInfo(final Compiler.C context) {
+    return switch (context) {
+      case STATEMENT -> contextStatementKey;
+      case EXPRESSION -> contextExpressionKey;
+      case RETURN -> contextReturnKey;
+      case EVAL -> contextEvalKey;
+    };
   }
 
   public static IPersistentMap extractGenInfo(final GeneratorAdapter gen) {

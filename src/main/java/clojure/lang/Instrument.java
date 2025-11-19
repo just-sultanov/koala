@@ -8,12 +8,17 @@ import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 import net.bytebuddy.matcher.ElementMatchers;
 
 import clojure.asm.commons.GeneratorAdapter;
-
 import clojure.lang.Compiler.*;
 
 import koala.Api;
 
 public final class Instrument {
+
+  public static IPersistentMap config = PersistentHashMap.EMPTY;
+
+  public static void setConfig(final IPersistentMap config) {
+    Instrument.config = config;
+  }
 
   public enum ExprKind {
     AssignExpr(AssignExpr.class),
@@ -63,7 +68,7 @@ public final class Instrument {
 
     private final Class<?> clazz;
 
-    ExprKind(Class<?> clazz) {
+    ExprKind(final Class<?> clazz) {
       this.clazz = clazz;
     }
 
@@ -76,26 +81,40 @@ public final class Instrument {
     }
   }
 
-  @Advice.OnMethodEnter
-  public static void onMethodEnter(
-      @Advice.Origin("#m") String method,
-      @Advice.This Compiler.Expr expr,
-      @Advice.Argument(0) Compiler.C context,
-      @Advice.Argument(1) Compiler.ObjExpr objx,
-      @Advice.Argument(2) GeneratorAdapter gen) {
-    final IPersistentMap opts = InstrumentUtils.makeOpts(method, expr, context, objx, gen);
-    Api.invoke(opts);
+  public static class EmitAdvice {
+
+    @Advice.OnMethodEnter
+    public static void onMethodEnter(
+        @Advice.Origin("#m") final String method,
+        @Advice.This final Compiler.Expr expr,
+        @Advice.Argument(0) final Compiler.C context,
+        @Advice.Argument(1) final Compiler.ObjExpr objx,
+        @Advice.Argument(2) final GeneratorAdapter gen) {
+      final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
+      Api.invoke(config, data);
+    }
+
+    @Advice.OnMethodExit
+    public static void onMethodExit(
+        @Advice.Origin("#m") final String method,
+        @Advice.This final Compiler.Expr expr,
+        @Advice.Argument(0) final Compiler.C context,
+        @Advice.Argument(1) final Compiler.ObjExpr objx,
+        @Advice.Argument(2) final GeneratorAdapter gen) {
+      final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
+      Api.invoke(config, data);
+    }
+
   }
 
-  @Advice.OnMethodExit
-  public static void onMethodExit(
-      @Advice.Origin("#m") String method,
-      @Advice.This Compiler.Expr expr,
-      @Advice.Argument(0) Compiler.C context,
-      @Advice.Argument(1) Compiler.ObjExpr objx,
-      @Advice.Argument(2) GeneratorAdapter gen) {
-    final IPersistentMap opts = InstrumentUtils.makeOpts(method, expr, context, objx, gen);
-    Api.invoke(opts);
+  public static void instrumentEmit(final ExprKind kind, final ClassReloadingStrategy strategy) {
+    new ByteBuddy()
+        .redefine(kind.getClazz())
+        .visit(Advice.to(Instrument.EmitAdvice.class)
+            .on(ElementMatchers.named("emit")
+                .and(ElementMatchers.takesArguments(3))))
+        .make()
+        .load(kind.getClazz().getClassLoader(), strategy);
   }
 
   public static void instrument() {
@@ -107,26 +126,12 @@ public final class Instrument {
     instrument(ExprKind.asList(), strategy);
   }
 
-  public static void instrument(final ExprKind exprKind, final ClassReloadingStrategy strategy) {
-    new ByteBuddy()
-        .redefine(exprKind.getClazz())
-        .visit(Advice.to(Instrument.class)
-            .on(ElementMatchers.named("emit")
-                .and(ElementMatchers.takesArguments(3))))
-        .make()
-        .load(exprKind.getClazz().getClassLoader(), strategy);
+  public static void instrument(final ExprKind kind, final ClassReloadingStrategy strategy) {
+    instrumentEmit(kind, strategy);
   }
 
-  public static void instrument(final List<ExprKind> exprKinds, final ClassReloadingStrategy strategy) {
-    for (ExprKind exprKind : exprKinds) {
-      new ByteBuddy()
-          .redefine(exprKind.getClazz())
-          .visit(Advice.to(Instrument.class)
-              .on(ElementMatchers.named("emit")
-                  .and(ElementMatchers.takesArguments(3))))
-          .make()
-          .load(exprKind.getClazz().getClassLoader(), strategy);
-    }
+  public static void instrument(final List<ExprKind> kinds, final ClassReloadingStrategy strategy) {
+    kinds.forEach(kind -> instrumentEmit(kind, strategy));
   }
 
 }

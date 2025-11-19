@@ -6,7 +6,7 @@
 (defn pre-load
   [config]
   (log/debug "Instrumenting...")
-  (kc/instrument)
+  (kc/instrument {})
   config)
 
 (defn post-load
