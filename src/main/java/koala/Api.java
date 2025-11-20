@@ -1,12 +1,11 @@
 package koala;
 
 import clojure.java.api.Clojure;
-import clojure.lang.IFn;
-import clojure.lang.IPersistentMap;
-import clojure.lang.Keyword;
+import clojure.lang.*;
 
 public final class Api {
   public static IFn require = Clojure.var("clojure.core", "require");
+  public static IFn merge = Clojure.var("clojure.core", "merge");
   public static IFn handler;
 
   static {
@@ -20,11 +19,4 @@ public final class Api {
     }
   }
 
-  public static Keyword asKeyword(final String name) {
-    return Keyword.intern(name);
-  }
-
-  public static Keyword asKeyword(final String ns, final String name) {
-    return Keyword.intern(ns, name);
-  }
 }

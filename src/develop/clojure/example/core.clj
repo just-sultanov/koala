@@ -1,5 +1,13 @@
 (ns example.core)
 
+(defonce ^{:private true,
+           :doc "test doc"}
+ TEST 42)
+
+(def ^{:private true
+       :doc "test2 doc"}
+  TEST2 42)
+
 (defn square
   [x]
   (* x x))

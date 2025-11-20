@@ -30,4 +30,6 @@
                    :high-watermark 80
                    :summary? true
                    :html? true
-                   :codecov? true}}
+                   :codecov? true}
+
+  :koala {:ns-patterns #{"example.core"}}}

@@ -51,15 +51,19 @@ import clojure.lang.Compiler.VectorExpr;
 import koala.Api;
 
 public final class InstrumentUtils {
-  public final static Keyword targetKey = Keyword.intern("target");
-  public final static Keyword exprKey = Keyword.intern("expr");
+
   public final static Keyword contextKey = Keyword.intern("context");
   public final static Keyword contextStatementKey = Keyword.intern("statement");
   public final static Keyword contextExpressionKey = Keyword.intern("expression");
   public final static Keyword contextReturnKey = Keyword.intern("return");
   public final static Keyword contextEvalKey = Keyword.intern("eval");
+
   public final static Keyword objxKey = Keyword.intern("objx");
   public final static Keyword genKey = Keyword.intern("gen");
+
+  public final static Keyword methodKey = Keyword.intern("method");
+  public final static Keyword varKey = Keyword.intern("var");
+  public final static Keyword metaKey = Keyword.intern("meta");
 
   public static IPersistentMap extract(
       final String method,
@@ -68,42 +72,8 @@ public final class InstrumentUtils {
       final Compiler.ObjExpr objx,
       final GeneratorAdapter gen) {
     final Keyword ctx = extractContext(context);
-    final IPersistentMap exprInfo = extractExpr(method, expr);
-    final IPersistentMap objxInfo = extractExpr(method, objx);
-    final IPersistentMap genInfo = extractGen(gen);
-    final ITransientMap opts = PersistentHashMap.EMPTY.asTransient()
-        // .assoc(targetKey, target)
-        .assoc(exprKey, exprInfo)
-        .assoc(contextKey, ctx)
-        .assoc(objxKey, objxInfo)
-        .assoc(genKey, genInfo);
-
-    // if (expr.fexpr instanceof VarExpr) {
-    // final Var var = ((VarExpr) expr.fexpr).var;
-    // System.out.println("InvokeExpr -> This " +
-    // opts.assoc("var", var)
-    // .assoc("varmeta", var.meta())
-    // .assoc("source", expr.source)
-    // .assoc("tag", expr.tag)
-    // .assoc("line", expr.line)
-    // .assoc("column", expr.column));
-    // } else {
-    // System.out.println("InvokeExpr -> This " +
-    // opts.assoc("source", expr.source)
-    // .assoc("tag", expr.tag)
-    // .assoc("line", expr.line)
-    // .assoc("column", expr.column));
-    // }
-    // System.out.println("InvokeExpr -> ObjExpr " +
-    // opts.assoc("name", objx.name())
-    // .assoc("internalName", objx.internalName())
-    // .assoc("thisName", objx.thisName())
-    // .assoc("objtype", objx.objtype())
-    // .assoc("tag", objx.tag)
-    // .assoc("line", objx.line())
-    // .assoc("column", objx.column())
-    // .assoc("src", objx.src));
-    return opts.persistent();
+    return extractExpr(method, expr)
+        .assoc(contextKey, ctx);
   }
 
   public static Keyword extractContext(final Compiler.C context) {
@@ -118,6 +88,11 @@ public final class InstrumentUtils {
   public static IPersistentMap extractGen(final GeneratorAdapter gen) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient();
     return info.persistent();
+  }
+
+  public static IPersistentMap extractMeta(final Var var, final ConstantExpr expr) {
+    final IPersistentMap v = (IPersistentMap) expr.v;
+    return (IPersistentMap) Api.merge.invoke(var.meta(), v);
   }
 
   public static IPersistentMap extractExpr(final String method, final Compiler.Expr expr) {
@@ -166,121 +141,123 @@ public final class InstrumentUtils {
 
   public static IPersistentMap extractExpr(final String method, final AssignExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("AssignExpr", method));
+        .assoc(methodKey, Keyword.intern("AssignExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final BodyExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("BodyExpr", method));
+        .assoc(methodKey, Keyword.intern("BodyExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final BooleanExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("BooleanExpr", method));
+        .assoc(methodKey, Keyword.intern("BooleanExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final CaseExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("CaseExpr", method));
+        .assoc(methodKey, Keyword.intern("CaseExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final ConstantExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("ConstantExpr", method));
+        .assoc(methodKey, Keyword.intern("ConstantExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final DefExpr expr) {
-    final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("DefExpr", method));
-    return info.persistent();
+    final IPersistentMap meta = extractMeta(expr.var, (ConstantExpr) expr.meta);
+    return PersistentHashMap.EMPTY
+        .assoc(methodKey, Keyword.intern("DefExpr", method))
+        .assoc(varKey, expr.var)
+        .assoc(metaKey, meta);
   }
 
   public static IPersistentMap extractExpr(final String method, final EmptyExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("EmptyExpr", method));
+        .assoc(methodKey, Keyword.intern("EmptyExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final FieldExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("FieldExpr", method));
+        .assoc(methodKey, Keyword.intern("FieldExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final FnExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("FnExpr", method));
+        .assoc(methodKey, Keyword.intern("FnExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final HostExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("HostExpr", method));
+        .assoc(methodKey, Keyword.intern("HostExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final IfExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("IfExpr", method));
+        .assoc(methodKey, Keyword.intern("IfExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final ImportExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("ImportExpr", method));
+        .assoc(methodKey, Keyword.intern("ImportExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final InstanceFieldExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("InstanceFieldExpr", method));
+        .assoc(methodKey, Keyword.intern("InstanceFieldExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final InstanceOfExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("InstanceOfExpr", method));
+        .assoc(methodKey, Keyword.intern("InstanceOfExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final InvokeExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("InvokeExpr", method));
+        .assoc(methodKey, Keyword.intern("InvokeExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final KeywordExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("KeywordExpr", method));
+        .assoc(methodKey, Keyword.intern("KeywordExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final KeywordInvokeExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("KeywordInvokeExpr", method));
+        .assoc(methodKey, Keyword.intern("KeywordInvokeExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final LetExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("LetExpr", method));
+        .assoc(methodKey, Keyword.intern("LetExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final LetFnExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("LetFnExpr", method));
+        .assoc(methodKey, Keyword.intern("LetFnExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final ListExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("ListExpr", method));
+        .assoc(methodKey, Keyword.intern("ListExpr", method));
     return info.persistent();
   }
 
@@ -297,139 +274,139 @@ public final class InstrumentUtils {
 
   public static IPersistentMap extractExpr(final String method, final LocalBindingExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("LocalBindingExpr", method));
+        .assoc(methodKey, Keyword.intern("LocalBindingExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final MapExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("MapExpr", method));
+        .assoc(methodKey, Keyword.intern("MapExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final MetaExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("MetaExpr", method));
+        .assoc(methodKey, Keyword.intern("MetaExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final MethodParamExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("MethodParamExpr", method));
+        .assoc(methodKey, Keyword.intern("MethodParamExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final MonitorEnterExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("MonitorEnterExpr", method));
+        .assoc(methodKey, Keyword.intern("MonitorEnterExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final MonitorExitExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("MonitorExitExpr", method));
+        .assoc(methodKey, Keyword.intern("MonitorExitExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final NewExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("NewExpr", method));
+        .assoc(methodKey, Keyword.intern("NewExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final NewInstanceExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("NewInstanceExpr", method));
+        .assoc(methodKey, Keyword.intern("NewInstanceExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final NilExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("NilExpr", method));
+        .assoc(methodKey, Keyword.intern("NilExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final NumberExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("NumberExpr", method));
+        .assoc(methodKey, Keyword.intern("NumberExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final ObjExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("ObjExpr", method));
+        .assoc(methodKey, Keyword.intern("ObjExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final QualifiedMethodExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("QualifiedMethodExpr", method));
+        .assoc(methodKey, Keyword.intern("QualifiedMethodExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final RecurExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("RecurExpr", method));
+        .assoc(methodKey, Keyword.intern("RecurExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final SetExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("SetExpr", method));
+        .assoc(methodKey, Keyword.intern("SetExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final StaticInvokeExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("StaticInvokeExpr", method));
+        .assoc(methodKey, Keyword.intern("StaticInvokeExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final StringExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("StringExpr", method));
+        .assoc(methodKey, Keyword.intern("StringExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final TheVarExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("TheVarExpr", method));
+        .assoc(methodKey, Keyword.intern("TheVarExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final ThrowExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("ThrowExpr", method));
+        .assoc(methodKey, Keyword.intern("ThrowExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final TryExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("TryExpr", method));
+        .assoc(methodKey, Keyword.intern("TryExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final UnresolvedVarExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("UnresolvedVarExpr", method));
+        .assoc(methodKey, Keyword.intern("UnresolvedVarExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final UntypedExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("UntypedExpr", method));
+        .assoc(methodKey, Keyword.intern("UntypedExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final VarExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("VarExpr", method));
+        .assoc(methodKey, Keyword.intern("VarExpr", method));
     return info.persistent();
   }
 
   public static IPersistentMap extractExpr(final String method, final VectorExpr expr) {
     final ITransientMap info = PersistentHashMap.EMPTY.asTransient()
-        .assoc(targetKey, Api.asKeyword("VectorExpr", method));
+        .assoc(methodKey, Keyword.intern("VectorExpr", method));
     return info.persistent();
   }
 }
