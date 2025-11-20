@@ -85,22 +85,24 @@ public final class Instrument {
 
     @Advice.OnMethodEnter
     public static void onMethodEnter(
-        @Advice.Origin("#m") final String method,
+        @Advice.Origin("#m") final String methodName,
         @Advice.This final Compiler.Expr expr,
         @Advice.Argument(0) final Compiler.C context,
         @Advice.Argument(1) final Compiler.ObjExpr objx,
         @Advice.Argument(2) final GeneratorAdapter gen) {
+      final String method = methodName + "Enter";
       final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
       Api.invoke(config, data);
     }
 
     @Advice.OnMethodExit
     public static void onMethodExit(
-        @Advice.Origin("#m") final String method,
+        @Advice.Origin("#m") final String methodName,
         @Advice.This final Compiler.Expr expr,
         @Advice.Argument(0) final Compiler.C context,
         @Advice.Argument(1) final Compiler.ObjExpr objx,
         @Advice.Argument(2) final GeneratorAdapter gen) {
+      final String method = methodName + "Exit";
       final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
       Api.invoke(config, data);
     }
