@@ -12,12 +12,12 @@ import clojure.lang.Compiler.*;
 
 import koala.Api;
 
-public final class Instrument {
+public final class Instrumentor {
 
   public static IPersistentMap config = PersistentHashMap.EMPTY;
 
   public static void setConfig(final IPersistentMap config) {
-    Instrument.config = config;
+    Instrumentor.config = config;
   }
 
   public enum ExprKind {
@@ -91,7 +91,7 @@ public final class Instrument {
         @Advice.Argument(1) final Compiler.ObjExpr objx,
         @Advice.Argument(2) final GeneratorAdapter gen) {
       final String method = methodName + "Enter";
-      final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
+      final IPersistentMap data = Extractor.extract(method, expr, context, objx, gen);
       Api.invoke(config, data);
     }
 
@@ -103,7 +103,7 @@ public final class Instrument {
         @Advice.Argument(1) final Compiler.ObjExpr objx,
         @Advice.Argument(2) final GeneratorAdapter gen) {
       final String method = methodName + "Exit";
-      final IPersistentMap data = InstrumentUtils.extract(method, expr, context, objx, gen);
+      final IPersistentMap data = Extractor.extract(method, expr, context, objx, gen);
       Api.invoke(config, data);
     }
 
@@ -112,7 +112,7 @@ public final class Instrument {
   public static void instrumentEmit(final ExprKind kind, final ClassReloadingStrategy strategy) {
     new ByteBuddy()
         .redefine(kind.getClazz())
-        .visit(Advice.to(Instrument.EmitAdvice.class)
+        .visit(Advice.to(Instrumentor.EmitAdvice.class)
             .on(ElementMatchers.named("emit")
                 .and(ElementMatchers.takesArguments(3))))
         .make()

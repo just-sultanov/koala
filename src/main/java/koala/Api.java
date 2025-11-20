@@ -19,4 +19,8 @@ public final class Api {
     }
   }
 
+  public static IPersistentMap merge(final IPersistentMap m1, final IPersistentMap m2) {
+    return (IPersistentMap) merge.invoke(m1, m2);
+  }
+
 }

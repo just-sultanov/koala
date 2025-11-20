@@ -6,8 +6,8 @@ import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 
 import clojure.lang.IPersistentMap;
-import clojure.lang.Instrument;
-import clojure.lang.Instrument.ExprKind;
+import clojure.lang.Instrumentor;
+import clojure.lang.Instrumentor.ExprKind;
 
 public final class Instrumentation {
 
@@ -21,9 +21,9 @@ public final class Instrumentation {
   }
 
   public static void instrument(final IPersistentMap config, final ClassReloadingStrategy strategy) {
-    final List<ExprKind> kinds = List.of(ExprKind.DefExpr);
-    Instrument.setConfig(config);
-    Instrument.instrument(kinds, strategy);
+    final List<ExprKind> kinds = List.of(ExprKind.DefExpr, ExprKind.InvokeExpr);
+    Instrumentor.setConfig(config);
+    Instrumentor.instrument(kinds, strategy);
   }
 
 }
