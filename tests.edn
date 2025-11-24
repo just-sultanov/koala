@@ -32,4 +32,4 @@
                    :html? true
                    :codecov? true}
 
-  :koala {:ns-patterns #{"example.core"}}}
+  :koala {:ns-patterns #{"^example.core$"}}}
