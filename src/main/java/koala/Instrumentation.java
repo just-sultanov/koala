@@ -21,7 +21,9 @@ public final class Instrumentation {
   }
 
   public static void instrument(final IPersistentMap config, final ClassReloadingStrategy strategy) {
-    final List<ExprKind> kinds = List.of(ExprKind.DefExpr, ExprKind.InvokeExpr);
+    final List<ExprKind> kinds = List.of(
+        ExprKind.DefExpr,
+        ExprKind.InvokeExpr);
     Instrumentor.setConfig(config);
     Instrumentor.instrument(kinds, strategy);
   }

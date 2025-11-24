@@ -1,5 +1,10 @@
 package clojure.lang;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import clojure.asm.commons.GeneratorAdapter;
 import clojure.lang.Compiler.*;
 
@@ -11,12 +16,18 @@ public final class Extractor {
   public final static Keyword contextStatementKey = Keyword.intern("statement");
   public final static Keyword contextExpressionKey = Keyword.intern("expression");
   public final static Keyword contextReturnKey = Keyword.intern("return");
-
   public final static Keyword contextEvalKey = Keyword.intern("eval");
+
+  public final static Keyword currentNSKey = Keyword.intern("current-ns");
+  public final static Keyword nsKey = Keyword.intern("ns");
+  public final static Keyword nameKey = Keyword.intern("name");
   public final static Keyword methodKey = Keyword.intern("method");
   public final static Keyword varKey = Keyword.intern("var");
   public final static Keyword metaKey = Keyword.intern("meta");
   public final static Keyword fexprKey = Keyword.intern("fexpr");
+
+  public final static Keyword lineKey = Keyword.intern("line");
+  public final static Keyword columnKey = Keyword.intern("column");
 
   public static Keyword asMethod(final String method, final Compiler.Expr expr) {
     return Keyword.intern(expr.getClass().getSimpleName(), method);
@@ -43,6 +54,7 @@ public final class Extractor {
       final Compiler.ObjExpr objx,
       final GeneratorAdapter gen) {
     return extract(expr)
+        .assoc(currentNSKey, Compiler.currentNS())
         .assoc(methodKey, asMethod(method, expr))
         .assoc(contextKey, asContext(context));
   }
@@ -50,9 +62,9 @@ public final class Extractor {
   public static IPersistentMap extract(final Compiler.Expr expr) {
     return switch (expr) {
       // case AssignExpr e -> extract(e);
-      // case BodyExpr e -> extract(e);
+      // case final BodyExpr e -> extract(e);
       // case CaseExpr e -> extract(e);
-      case DefExpr e -> extract(e);
+      case final DefExpr e -> extract(e);
       // case FieldExpr e -> extract(e);
       // case FnExpr e -> extract(e);
       // case HostExpr e -> extract(e);
@@ -60,10 +72,10 @@ public final class Extractor {
       // case ImportExpr e -> extract(e);
       // case InstanceFieldExpr e -> extract(e);
       // case InstanceOfExpr e -> extract(e);
-      case InvokeExpr e -> extract(e);
+      case final InvokeExpr e -> extract(e);
       // case KeywordExpr e -> extract(e);
       // case KeywordInvokeExpr e -> extract(e);
-      // case LetExpr e -> extract(e);
+      // case final LetExpr e -> extract(e);
       // case LetFnExpr e -> extract(e);
       // case ListExpr e -> extract(e);
       // case LiteralExpr e -> extract(e);
@@ -88,15 +100,34 @@ public final class Extractor {
       // case VarExpr e -> extract(e);
       // case VectorExpr e -> extract(e);
       default -> {
-        System.out.println("unhandled Compile.Expr type");
+        // System.out.println("unhandled Compiler.Expr type: " +
+        // expr.getClass().getSimpleName());
         yield PersistentHashMap.EMPTY;
       }
     };
   }
 
+  @SuppressWarnings("unchecked")
+  public static IPersistentMap extract(final BodyExpr expr) {
+    final Iterator<Compiler.Expr> iterator = expr.exprs().iterator();
+    final List<IPersistentMap> exprs = Stream.generate(() -> null)
+        .takeWhile(x -> iterator.hasNext())
+        .map(x -> iterator.next())
+        .map(e -> extract(e))
+        .collect(Collectors.toList());
+
+    // System.out.println();
+    // System.out.println("===== ns: " + Compiler.currentNS());
+    // System.out.println("===== exprs: " + exprs);
+    // System.out.println();
+
+    return PersistentHashMap.EMPTY
+        .assoc(Keyword.intern("exprs"), exprs);
+  }
+
   public static IPersistentMap extract(final ConstantExpr expr) {
     return switch (expr.v) {
-      case IPersistentMap v -> (IPersistentMap) v;
+      case final IPersistentMap v -> (IPersistentMap) v;
       default -> PersistentHashMap.EMPTY;
     };
   }
@@ -113,14 +144,19 @@ public final class Extractor {
 
   public static IPersistentMap extract(final InvokeExpr expr) {
     return switch (expr.fexpr) {
-      case VarExpr e -> {
+      // case final InvokeExpr e -> extract(e.fexpr);
+      case final VarExpr e -> {
         // extract expr.args
         yield extract(e);
       }
+      case final FnExpr e -> {
+        yield extract(e);
+      }
+      case final TheVarExpr e -> extract(e);
       default -> {
         // System.out.println("unhandled InvokeExpr/fexpr type: " +
         // expr.fexpr.getClass().getSimpleName());
-        yield PersistentHashMap.EMPTY;
+        yield PersistentHashMap.EMPTY.assoc("simpleName", expr.fexpr.getClass().getSimpleName());
       }
     };
   }
@@ -130,6 +166,26 @@ public final class Extractor {
     final IPersistentMap meta = var.meta();
     return PersistentHashMap.EMPTY
         .assoc(varKey, var)
+        .assoc(metaKey, meta);
+  }
+
+  public static IPersistentMap extract(final TheVarExpr expr) {
+    final Var var = expr.var;
+    final IPersistentMap meta = var.meta();
+    return PersistentHashMap.EMPTY
+        .assoc(varKey, var)
+        .assoc(metaKey, meta);
+  }
+
+  public static IPersistentMap extract(final FnExpr expr) {
+    // final ObjExpr objexpr = (ObjExpr) expr;
+    final IPersistentMap meta = PersistentHashMap.EMPTY
+        .assoc(nameKey, Symbol.intern(expr.name()))
+        .assoc(nsKey, Compiler.currentNS())
+        .assoc(lineKey, expr.line())
+        .assoc(columnKey, expr.column());
+
+    return PersistentHashMap.EMPTY
         .assoc(metaKey, meta);
   }
 
